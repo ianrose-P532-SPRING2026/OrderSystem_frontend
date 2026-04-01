@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order System - Admin</title>
+</head>
+<body>
+    <a href="admin.html">Back to admin page</a>
+    <br />
+
+    <h3>Logged in as: </h3>
+    <select name="login" id="login">
+        <option value="">SELECT USER</option>
+    </select>
+    <br />
+
+    <h1>All users:</h1>
+    <ul id="userList">
+    </ul>
+
+    <h3>Create a new user:</h3>
+    <form id="newUser">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="role">Role:</label>
+        <select name="role" id="role">
+            <option value="CLINICIAN">Clinician</option>
+            <option value="ADMIN">Administrator</option>
+            <option value="LAB_TECHNICIAN">Lab Technician</option>
+            <option value="RADIOLOGIST">Radiologist</option>
+            <option value="PHARMACIST">Pharmacist</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script src="users.js" defer></script>
+</body>
+</html>
