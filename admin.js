@@ -1,4 +1,5 @@
-const host = "http://localhost:8080"
+//const host = "http://localhost:8080"
+const host = "https://ordersystem-theextracrispy.onrender.com"
 
 const loginDropdown = document.getElementById("login");
 const orderList = document.getElementById("orderList");
@@ -104,3 +105,4 @@ Time Closed: ${closed}`;
 }
 
 listAllOrders();
+setInterval(listAllOrders, 3000);

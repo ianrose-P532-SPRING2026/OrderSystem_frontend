@@ -1,4 +1,5 @@
-const host = "http://localhost:8080"
+//const host = "http://localhost:8080"
+const host = "https://ordersystem-theextracrispy.onrender.com"
 
 const logList = document.getElementById('logs');
 
@@ -31,3 +32,4 @@ async function listLogs(){
 }
 
 listLogs();
+setInterval(listLogs, 3000);
