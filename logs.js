@@ -16,25 +16,33 @@ async function listLogs(){
         logList.innerHTML = ""; //clear all before populating
         logs.forEach(log => {
             const li = document.createElement('li');
+            
+            if(log.undone){
+                const logText = document.createElement('pre');
+                logText.innerHTML = `<del>${log.type} Order #${log.orderId} by user #${log.actorId} at ${log.timestamp}<del/>`;
 
-            const logText = document.createElement('pre');
-            logText.textContent = `${log.type} Order #${log.orderId} by user #${log.actorId} at ${log.timestamp}`;
+                const repeatButton = document.createElement('button');
+                repeatButton.textContent = 'Redo';
+                repeatButton.addEventListener('click', () => {
+                    redoCommand(log);
+                });
+                li.appendChild(logText);
+                li.appendChild(repeatButton);
+            } 
+            
+            else {
+                const logText = document.createElement('pre');
+                logText.innerHTML = `${log.type} Order #${log.orderId} by user #${log.actorId} at ${log.timestamp}`;
 
-            const undoButton = document.createElement('button');
-            undoButton.textContent = 'Undo';
-            undoButton.addEventListener('click', () => {
-                undoCommand(log);
-            });
+                const undoButton = document.createElement('button');
+                undoButton.textContent = 'Undo';
+                undoButton.addEventListener('click', () => {
+                    undoCommand(log);
+                });
+                li.appendChild(logText);
+                li.appendChild(undoButton);
+            }
 
-            const repeatButton = document.createElement('button');
-            repeatButton.textContent = 'Repeat';
-            repeatButton.addEventListener('click', () => {
-                repeatCommand(log);
-            });
-
-            li.appendChild(logText);
-            li.appendChild(undoButton);
-            li.appendChild(repeatButton);
             logList.appendChild(li);
         });
 
@@ -57,13 +65,16 @@ async function undoCommand(log) {
     };
 
     let response = await fetch(host + "/logs/undo", request);
-    if (response.ok){
+    let result = await response.text();
+    if (result != "OK"){
+        alert(result);
+    } else {
         listLogs();
-        alert("Command undone.")
+        alert("Command undone.");   
     }
 }
 
-async function repeatCommand(log) {
+async function redoCommand(log) {
     let LogEntry = log;
     
     console.log("You entered: " + JSON.stringify(LogEntry));
@@ -76,10 +87,13 @@ async function repeatCommand(log) {
         body: JSON.stringify(LogEntry)
     };
 
-    let response = await fetch(host + "/logs/repeat", request);
-    if (response.ok){
+    let response = await fetch(host + "/logs/redo", request);
+    let result = await response.text();
+    if (result != "OK"){
+        alert(result);
+    } else {
         listLogs();
-        alert("Command repeated.")
+        alert("Command restored.");   
     }
 }
 
