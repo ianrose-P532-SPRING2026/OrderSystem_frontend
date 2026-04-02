@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 async function listAllOrders(){
     try {
-        const response = await fetch(host + "/orders/pending");
+        const response = await fetch(host + "/orders/open");
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }

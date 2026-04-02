@@ -4,8 +4,6 @@ const host = "http://localhost:8080"
 const logList = document.getElementById('logs');
 
 
-//int entryId, CommandType type, int orderId, int actorId, Instant timestamp
-
 async function listLogs(){
     try {
         const response = await fetch(host + "/logs");
@@ -22,12 +20,66 @@ async function listLogs(){
             const logText = document.createElement('pre');
             logText.textContent = `${log.type} Order #${log.orderId} by user #${log.actorId} at ${log.timestamp}`;
 
+            const undoButton = document.createElement('button');
+            undoButton.textContent = 'Undo';
+            undoButton.addEventListener('click', () => {
+                undoCommand(log);
+            });
+
+            const repeatButton = document.createElement('button');
+            repeatButton.textContent = 'Repeat';
+            repeatButton.addEventListener('click', () => {
+                repeatCommand(log);
+            });
+
             li.appendChild(logText);
+            li.appendChild(undoButton);
+            li.appendChild(repeatButton);
             logList.appendChild(li);
         });
 
     } catch (error) {
-        console.error("Error showing orders:", error);
+        console.error("Error showing logs:", error);
+    }
+}
+
+async function undoCommand(log) {
+    let LogEntry = log;
+    
+    console.log("You entered: " + JSON.stringify(LogEntry));
+
+    let request = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(LogEntry)
+    };
+
+    let response = await fetch(host + "/logs/undo", request);
+    if (response.ok){
+        listLogs();
+        alert("Command undone.")
+    }
+}
+
+async function repeatCommand(log) {
+    let LogEntry = log;
+    
+    console.log("You entered: " + JSON.stringify(LogEntry));
+
+    let request = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(LogEntry)
+    };
+
+    let response = await fetch(host + "/logs/repeat", request);
+    if (response.ok){
+        listLogs();
+        alert("Command repeated.")
     }
 }
 
