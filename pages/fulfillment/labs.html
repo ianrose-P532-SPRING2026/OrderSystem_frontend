@@ -19,12 +19,27 @@
     </select>
     <br />
 
+    <input type="checkbox" id="CONSOLE" name="CONSOLE" value="CONSOLE" checked>
+    <label for="CONSOLE">Console</label>
+    
+    <input type="checkbox" id="EMAIL" name="EMAIL" value="EMAIL">
+    <label for="EMAIL">Email</label>
+
+    
+    <input type="checkbox" id="COUNTER" name="COUNTER" value="COUNTER">
+    <label for="COUNTER">Badge?</label>
+
+    <span id="COUNT"></span>
+
     <div class="mode-select">
         <label for="triageDropdown">Triage Mode: </label>
         <select name="triageDropdown" id="triageDropdown">
             <option value="PRIORITY">Priority First</option>
             <option value="OLDEST">Oldest</option>
             <option value="NEWEST">Newest</option>
+            <option value="AUTOASSIGN_LOADBALANCING">Autoassign</option>
+            <option value="DEADLINE">Deadline Sort</option>
+
         </select>
         <button id="triageButton">Select</button>
     </div>

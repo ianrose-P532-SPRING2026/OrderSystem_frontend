@@ -25,7 +25,6 @@ let currentUser = -1;
 //----------------------------------------------------------------------------------------------------------------------
 
 
-
 async function listAllUsers(){
     try {
         const response = await fetch(host + "/staff/all");
