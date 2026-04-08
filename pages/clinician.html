@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <title>OrdSys-Clinical</title>
+</head>
+
+
+<body>
+    <h1 style="margin: 5px;">Clinical Department</h1>
+    <a href="../index.html">Home</a>
+    <br />
+
+    <label for="login">Logged in as: </label>
+    <select name="login" id="login">
+        <option value="">SELECT USER</option>
+    </select>
+    <br />
+
+    <div class="mode-select">
+        <label for="triageDropdown">Triage Mode: </label>
+        <select name="triageDropdown" id="triageDropdown">
+            <option value="PRIORITY">Priority First</option>
+            <option value="OLDEST">Oldest</option>
+            <option value="NEWEST">Newest</option>
+            <option value="DEADLINE">Deadline Sort</option>
+
+        </select>
+        <button id="triageButton">Select</button>
+    </div>
+
+    <div class="order-lists">
+        <div class="sub-list">
+            <h3>Open Orders</h3>
+            
+            <ul id="openOrders" style="height: 450px;">
+                <li style="text-align: center; list-style-type: none;">Waiting for response...</li>
+            </ul>
+        </div>
+        
+        <div class="sub-list">
+            <h3>Closed Orders</h3>
+            <ul id="closedOrders" style="height: 450px;">
+                <li style="text-align: center; list-style-type: none;">Waiting for response...</li>
+            </ul>
+        </div>
+    </div>    
+
+    <h3>Create a new order:</h3>
+    <form id="newOrder">
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" required>
+        <br \>
+        <label for="desc">Description:</label>
+        <input type="text" id="desc">
+        <br \>
+        <label for="orderType">Type:</label>
+        <select name="type" id="orderType">
+            <option value="LAB">Labs</option>
+            <option value="MEDICATION">Medication</option>
+            <option value="IMAGING">Imaging</option>
+        </select>
+
+        <label for="priority">Priority:</label>
+        <select name="priority" id="priority">
+            <option value="ROUTINE">Routine</option>
+            <option value="URGENT">Urgent</option>
+            <option value="STAT">STAT</option>
+        </select>
+        <br \>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="module" src="../js/clinician.js" defer></script>
+</body>
+</html>

@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order System - Admin</title>
+    <link rel="stylesheet" href="../styles.css">
+    <title>OrdSys-Users</title>
 </head>
 <body>
     <a href="admin.html">Back to admin page</a>
     <br />
 
-    <h3>Logged in as: </h3>
+    <label for="login">Logged in as: </label>
     <select name="login" id="login">
         <option value="">SELECT USER</option>
     </select>
     <br />
-
+    
     <h1>All users:</h1>
-    <ul id="userList">
+    <ul id="userList" class="user-list">
     </ul>
 
     <h3>Create a new user:</h3>
@@ -36,6 +37,6 @@
         <button type="submit">Submit</button>
     </form>
 
-    <script src="users.js" defer></script>
+    <script type="module" src="../js/users.js" defer></script>
 </body>
 </html>

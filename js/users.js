@@ -1,39 +1,29 @@
-const host = "http://localhost:8080"
-//const host = "https://ordersystem-theextracrispy.onrender.com"
+import { host } from './utils/host.js';
 
-const loginDropdown = document.getElementById("login");
 const newUserForm = document.getElementById('newUser');
 const userList = document.getElementById('userList');
 
-let currentUser = 0;
-async function listValidUsers() {
-    try {
-        const response = await fetch(host + '/staff/admins'); 
+//-------------------------------------------------------LOGIN----------------------------------------------------------
+import { listValidUsers, fillUserDropdown } from './utils/login.js';
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+const clinicalStaffLink = "admin"
+const loginDropdown = document.getElementById("login");
 
-        let validUsers = await response.json();
-
-        loginDropdown.innerHTML = "<option value=\"\">SELECT USER</option>"; //clear all before populating
-
-        validUsers.forEach(user => {
-            const option = document.createElement("option"); 
-            option.value = user.id; 
-            option.textContent = user.name;
-            loginDropdown.appendChild(option);
-        });
-    } catch (error) {
-        console.error("Error fetching or populating dropdown:", error);
-    }
+async function setupUserDropdown(){
+    const validUsers = await listValidUsers(clinicalStaffLink);
+    fillUserDropdown(loginDropdown, validUsers);
 }
-login.addEventListener("change", function(event) {
-    currentUser = event.target.value;
-});
 document.addEventListener('DOMContentLoaded', (event) => {
-  listValidUsers();
+  setupUserDropdown();
 });
+loginDropdown.addEventListener("change", function(event) {
+    currentUser = event.target.value;
+    refresh();
+});
+
+let currentUser = -1;
+//----------------------------------------------------------------------------------------------------------------------
+
 
 
 async function listAllUsers(){
@@ -73,6 +63,11 @@ async function listAllUsers(){
 }
 
 async function createNewUser(name, role) {
+    if(currentUser == -1){
+        alert("Please select a user.");
+        return;
+    }
+
     let NewStaffRequest = {name: name, role: role, targetId: -1, requestingId: currentUser};
 
     console.log("You entered: " + JSON.stringify(NewStaffRequest));
@@ -96,6 +91,11 @@ async function createNewUser(name, role) {
 }
 
 async function deleteUser(userListed) {
+    if(currentUser == -1){
+        alert("Please select a user.");
+        return;
+    }
+    
     let NewStaffRequest = {name: userListed.name, role: userListed.role, targetId: userListed.id, requestingId: currentUser};
     
     console.log("You entered: " + JSON.stringify(NewStaffRequest));

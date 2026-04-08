@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../styles.css">
+    <title>OrdSys-Radiology</title>
+</head>
+
+
+<body>
+    <h1 style="margin: 5px;">Radiology Department</h1>
+    <a href="../../index.html">Home</a>
+    <br />
+
+    <label for="login">Logged in as: </label>
+    <select name="login" id="login">
+        <option value="">SELECT USER</option>
+    </select>
+    <br />
+
+    <div class="mode-select">
+        <label for="triageDropdown">Triage Mode: </label>
+        <select name="triageDropdown" id="triageDropdown">
+            <option value="PRIORITY">Priority First</option>
+            <option value="OLDEST">Oldest</option>
+            <option value="NEWEST">Newest</option>
+        </select>
+        <button id="triageButton">Select</button>
+    </div>
+    
+    <div class="order-lists">
+        <div class="sub-list">
+            <h3>Pending Imaging Orders</h3>
+            <ul id="pendingOrders" style="height: 600px;">
+                <li style="text-align: center; list-style-type: none;">Waiting for response...</li>
+            </ul>
+        </div>
+        
+        <div class="sub-list">
+            <h3>Your Assigned Orders</h3>
+            <ul id="assignedOrders" style="height: 450px;">
+                <li style="text-align: center; list-style-type: none;">Waiting for response...</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="../../js/radiology.js" defer></script>
+</body>
+</html>
